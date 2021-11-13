@@ -2,9 +2,9 @@ echo > logs.txt
 pip install -r api/requirements.txt
 python api/api.py &
 cd app/TPOT_web_app
-npm install yarn
+npm install --global yarn
 npm install papaparse
-npm install http-server
+npm install --global http-server
 cd -
 http-server ./ --cors -c-1 -s &
 cd app/TPOT_web_app
