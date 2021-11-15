@@ -2,10 +2,17 @@ import {
   config
 } from "./config.js";
 import papa from "papaparse";
+var downloadArea;
+var responseArea;
+var logArea;
 
 export const events = {	
 	trainTPOT: function(){
-		var file = document.getElementById("data").files[0];	  
+		try{
+			var file = document.getElementById("data").files[0];	  
+		} catch (error){
+			console.error(error);
+		}
 		var mode = document.querySelector('input[name="mode"]:checked').value;  	  
 		var generations = document.getElementById("generations").value;  
 		var populationSize = document.getElementById("population_size").value;
@@ -25,14 +32,16 @@ export const events = {
 		var verbosity = document.getElementById("verbosity").value;
 		var useDask = document.getElementById("use_dask").checked;
 		var warmStart = document.getElementById("warm_start").checked;	   
-		
-		var responseArea = document.getElementById("response");
-		var downloadArea = document.getElementById("download");
+				
 		downloadArea.hidden = true;		
 		responseArea.hidden = false;
+		logArea.hidden = true;
+		
 		responseArea.innerText = "Training...";	
 		
-		papa.parse(file, {download:true,
+		var interval = setInterval(events.readLog, 100, true);	 
+		
+		try{papa.parse(file, {download:true,
 			header: true,	  
 			complete: function(results) {			
 				var payload = JSON.stringify({"data": JSON.stringify(results.data),
@@ -56,7 +65,11 @@ export const events = {
 					"use_dask": useDask,
 					"warm_start": warmStart		
 					}	
-				);	
+				);
+
+				if (verbosity != 0){
+					logArea.hidden = false;
+				}
 
 				fetch("http://" + config.api_url + ":" + config.api_port + "/" + config.api_endpoint,
 					{method: "POST",
@@ -67,24 +80,46 @@ export const events = {
 					.then(response => response.json())
 					.then(data => responseArea.innerText = data.Output)
 					.then(() => downloadArea.hidden = false)
+					.then(() => clearInterval(interval))					
 					.catch((error) => {
 						console.error("Error", error);
 					});
 			}
-		});		
+		});
+		} catch {			
+			responseArea.innerText = "Dataset not selected. Please select a dataset for tuning.";	
+		}		
 	},
-	readLog: function() {
-		var logArea = document.getElementById("log_area");
-
-		if (logArea.innerText != ""){
-			logArea.hidden = false;
+	readLog: async function(training = false, noScript = false) {									
+		await fetch("http://localhost:8080/logs.txt")
+			.then(response => response.text())
+			.then(response => logArea.innerText = response);		
+		
+		if (training == false) {
+			var response = await fetch("http://localhost:8080/script.py");	
+			
+			if (response.status == 404){
+				noScript = true;
+			}
+			
+			if (noScript == false){				
+				downloadArea.hidden = false;
+				responseArea.innerText = "Previously completed training, script available";
+				
+				if (logArea.innerText != ""){
+					logArea.hidden = false;
+				}				
+			}
 		}	
 		
-		fetch("http://localhost:8080/logs.txt")
-			.then(response => response.text())
-			.then(response => logArea.innerText = response);
+		logArea.scrollTop = logArea.scrollHeight;		
 	},
-	watchFile: function(){					  	 
-		var interval = setInterval(events.readLog, 1000);	 	 		
+	checkLog: async function(){
+		const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+		await delay(1000);
+		logArea = document.getElementById("log_area");
+		downloadArea = document.getElementById("download");
+		responseArea = document.getElementById("response");		
+		setTimeout(events.readLog, 1000);
 	}
 }
