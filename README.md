@@ -13,7 +13,7 @@ In the directory `app/TPOT_web_app/src/` set the root_url inside `config.js`:
 export const config = {
     api_url : "localhost",
     api_port: 5000,
-    api_endpoint : "inference"
+    api_endpoint : "setup-train-tpot"
 }
 ```
 
