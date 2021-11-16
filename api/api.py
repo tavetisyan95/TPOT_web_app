@@ -81,7 +81,7 @@ args_parser.add_argument(name="verbosity", type=int,
                          help="How much information TPOT displays while training")
 
 args_parser.add_argument(name="log_file", type=str,
-                         default="logs.txt",
+                         default="app/TPOT_web_app/logs.txt",
                          help="Directory for logging")
 
 # Building an endpoint for training
@@ -136,7 +136,7 @@ class SetupTrainTPOT(Resource):
         pipeline_optimizer.fit(features, labels)
         
         # Exporting the best pipeline
-        pipeline_optimizer.export("script.py")
+        pipeline_optimizer.export("app/TPOT_web_app/script.py")
         
         # Returning the prediction
         return {"Output": "Training complete!"}, 200
