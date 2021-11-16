@@ -39,7 +39,7 @@ export const events = {
 		
 		responseArea.innerText = "Training...";	
 		
-		var interval = setInterval(events.readLog, 100, true);	 
+		var interval = setInterval(events.readLog, 50, true);	 
 		
 		try{papa.parse(file, {download:true,
 			header: true,	  
