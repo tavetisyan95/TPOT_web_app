@@ -185,7 +185,7 @@ function UI(props) {
 				<div className="input"><input type="text" id="early_stop" defaultValue="None"></input></div>	  
 				<div className="description">
 					<p className="type">Integer or None, default: None</p>
-					<p>The number of generations with no change the optimizer tolerates.</p>
+					<p>The number of generations with no improvement the optimizer tolerates.</p>
 				</div>
 			</fieldset>	  
 		  
