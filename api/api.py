@@ -124,9 +124,7 @@ class SetupTrainTPOT(Resource):
         if data_args["mode"] == "Classification":
             pipeline_optimizer = TPOTClassifier(**config_args)
         elif data_args["mode"] == "Regression":
-            pipeline_optimizer = TPOTRegressor(**config_args)
-        
-        print(data_args["data"][-500:])
+            pipeline_optimizer = TPOTRegressor(**config_args)       
         
         # Reading and preprocessing the JSON dataset
         df = pd.io.json.read_json(data_args["data"])  
