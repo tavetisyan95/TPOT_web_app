@@ -1,13 +1,11 @@
-# Importing necessary tools
+# Importing dependencies
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 from tpot import TPOTClassifier, TPOTRegressor
 import numpy as np
 import pandas as pd
-from urllib.parse import unquote
 import dask, dask_ml
-
 
 
 # Setting up a Flask application
@@ -19,10 +17,12 @@ api = Api(app=app)
 # Data arguments
 data_parser = reqparse.RequestParser()
 data_parser.add_argument(name="data", type=str,                         
-                         help="Data to be used for training")
+                         help="Data to be used for training",
+                         required=True)
 
 data_parser.add_argument(name="mode", type=str,
-                        help="Mode of training")
+                         help="Mode of training (classification or regression)",
+                         required=True)
 
 # TPOT arguments
 args_parser = reqparse.RequestParser()
@@ -84,9 +84,10 @@ args_parser.add_argument(name="log_file", type=str,
                          default="app/TPOT_web_app/logs.txt",
                          help="Directory for logging")
 
-# Building an endpoint for training
+
+# Creating an endpoint for TPOT training
 class SetupTrainTPOT(Resource):
-    # A method corresponding to a GET request
+    # A method corresponding to a POST request
     def post(self):
         # Parsing the arguments we defined earlier
         data_args = data_parser.parse_args()        
@@ -117,17 +118,18 @@ class SetupTrainTPOT(Resource):
                 config_args[key] = int(config_args[key])
             # Replacing string "None" to datatype None
             elif config_args[key] == "None":
-                config_args[key] = None                    
-                
+                config_args[key] = None            
+        
         # Choosing training mode
         if data_args["mode"] == "Classification":
-            pipeline_optimizer = TPOTClassifier(**config_args)            
+            pipeline_optimizer = TPOTClassifier(**config_args)
         elif data_args["mode"] == "Regression":
-            pipeline_optimizer = TPOTRegressor(**config_args)            
+            pipeline_optimizer = TPOTRegressor(**config_args)
+        
+        print(data_args["data"][-500:])
         
         # Reading and preprocessing the JSON dataset
-        df = pd.io.json.read_json(unquote(data_args["data"]))        
-        df = df.drop(len(df)-1)
+        df = pd.io.json.read_json(data_args["data"])  
         
         features = df.drop(["target"], axis=1).to_numpy().astype(np.float64)
         labels = df["target"].to_numpy().astype(np.int32)
@@ -141,9 +143,11 @@ class SetupTrainTPOT(Resource):
         # Returning the prediction
         return {"Output": "Training complete!"}, 200
 
+
 # Adding the endpoint to our app
 api.add_resource(SetupTrainTPOT, "/setup-train-tpot")
 
-# Launching our app
+
+# launching our app
 if __name__ == "__main__":
     app.run()

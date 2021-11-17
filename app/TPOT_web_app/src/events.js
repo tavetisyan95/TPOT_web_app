@@ -41,8 +41,9 @@ export const events = {
 		
 		var interval = setInterval(events.readLog, 50, true);	 
 		
-		try{papa.parse(file, {download:true,
-			header: true,	  
+		try{papa.parse(file, {download:false,
+			header: true,
+			skipEmptyLines: true,
 			complete: function(results) {			
 				var payload = JSON.stringify({"data": JSON.stringify(results.data),
 					"mode": mode,
