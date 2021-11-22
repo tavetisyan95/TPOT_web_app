@@ -13,7 +13,7 @@ function App() {
 				
 				<UI/>
 			
-				<button onClick={(event) => {events.trainTPOT()}}>Train</button>                	  
+				<button id="train_button" onClick={(event) => {events.trainTPOT()}}>Train</button>                	  
 			</div>
 		</>
 	);

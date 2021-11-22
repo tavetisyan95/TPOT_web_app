@@ -87,6 +87,9 @@ export const events = {
 		var useDask = document.getElementById("use_dask").checked;
 		var warmStart = document.getElementById("warm_start").checked;	   
 		
+		// Obtaining the button object for training
+		var trainButton = document.getElementById("train_button");					
+		
 		// Hiding the script download link and log area and showing the response area
 		downloadArea.hidden = true;		
 		responseArea.hidden = false;
@@ -134,6 +137,8 @@ export const events = {
 					logArea.hidden = false;
 				}
 				
+				// Hiding train button
+				trainButton.style.visibility = "hidden";				
 				
 				// Sending a POST request to our Python API
 				fetch("http://" + config.api_url + ":" + config.api_port + "/" + config.api_endpoint,
@@ -144,7 +149,8 @@ export const events = {
 					body: payload})
 					.then(response => response.json())
 					.then(data => responseArea.innerText = data.Output) // Showing the success message defined in the Python API
-					.then(() => downloadArea.hidden = false) // Showing download link for the pipeline script
+					.then(() => downloadArea.hidden = false) // Showing download link for the pipeline script				
+					.then(() => trainButton.style.visibility = "visible") // Making train button visible
 					.then(() => clearInterval(interval)) // Clearing the interval that repeatedly checked logs				
 					.catch((error) => {
 						console.error("Error", error);
