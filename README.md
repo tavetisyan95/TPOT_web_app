@@ -73,3 +73,7 @@ In its current implementation, the app has some notable limitations, including:
 - Users cannot set up a custom directory for logs. The log directory is defined in the API Python code.
 - Some parameters - like `config_dict`, `scoring`, and `cv` - accept more complex inputs than just strings and integers. For example, TPOT's `config_dict` can take custom configuration dictionaries, while `scoring` accepts custom scoring functions. None of these complex behaviors were implemented in the app.
 - The sum of `mutation_rate` and `crossover_rate` must not exceed 1.0. The app doesn't handle invalid inputs for these parameters in any way - you can pass any value between 0.0 and 1.0 for both. You'll still get errors in the terminal, but the app doesn't give any on-page warning that invalid inputs are selected.
+
+
+## Starting in Docker
+```docker-compose -f docker-compose.yaml up -d --build```
