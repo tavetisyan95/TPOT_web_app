@@ -10,10 +10,9 @@ function UI(props) {
         <legend className="legend">Training data</legend>
         <div className="input">
           <input type="file" id="data"></input>
-          <button id="data_shown" onClick={(e) => {document.getElementById("data").click()}}>UPLOAD</button>
         </div>
-        <div className="description">
-          <p className="type">CSV file</p>
+        <button id="data_shown" onClick={(e) => {document.getElementById("data").click()}}>UPLOAD</button>
+        <div className="description"><br></br>
           <p>The data that will be used for training</p>
         </div>
       </fieldset>
@@ -26,11 +25,11 @@ function UI(props) {
      
       <div className="toggle_wrapper">
         <div className='ball_container'><div id="ball_id" class="ball" onClick={(e) => {events.toggle_training_mode(e.target.id, "Classification")}}></div></div>
-        <div>CLASSIFICATION</div>
+        <div className="choice_title">CLASSIFICATION</div>
         <div></div>
         <div></div>
         <div className='ball_container'><div id="ball_id2" class="ball" onClick={(e) => {events.toggle_training_mode(e.target.id, "Regression")}}></div></div>
-        <div>REGRESSION</div>
+        <div className="choice_title">REGRESSION</div>
       </div>
       <div className="description">
           The mode of training for the optimizer.
