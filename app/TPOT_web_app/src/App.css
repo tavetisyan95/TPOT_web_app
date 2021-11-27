@@ -1,9 +1,79 @@
 * {
-  background: #EAEAEA;
+  background: #2c2c54;
+  white-space: nowrap;
+  color: #f7f1e3;
+  text-align: center;
+}
+
+div, p {
+  background: transparent;
+}
+
+input[type=range] {
+	-webkit-appearance: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+    user-select: none;
+    background: transparent;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+	height: 20px;
+	background: #f7f1e3;
+	border: none;
+	border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	border: none;
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	background: goldenrod;
+	margin-top: -1px;
+	box-shadow: 2px 2px 2px black;
+}
+
+input[type=range]:focus {
+	outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+	background: #227093;
+}
+
+.UI_wrapper {
+  display: grid;
+  grid-auto-rows: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+}
+
+.ui_item {
+  margin: 30px;
+}
+
+.ui_item:nth-child(23) {
+  grid-column: 1 / span 2;
+}
+
+.fieldset {
+  border: 1px solid deeppink;
+  background: #262645;
+}
+
+.fieldset:hover {
+  box-shadow: 2px 2px 30px black;;
 }
 
 button {
-  display: flex;
   height: auto;
   width: auto;
   border: none;
@@ -11,15 +81,45 @@ button {
   color: whitesmoke;
   border-radius: 4px;
   font-size: 17px;
-  margin: 0 auto;
   cursor: pointer;
   padding: 10px;
-  margin-bottom: 10px;
+}
+
+input {
+  border: none;
+  height: 30px;
+  border-radius: 4px;
+  background: whitesmoke;
+  color: #141414;
+  font-size: 16px;
+  text-align: left !important;
+  padding-left: 5px;
+}
+
+#data {
+  visibility: hidden;
+}
+
+#data_shown {
+  height: auto;
+  width: auto;
+  padding: 10px;
+  background: tomato;
+  color: whitesmoke;
+  float: left !important;
+  margin-left: 280px;
+}
+
+#log_area {
+  background: #3fa3a3;
+  overflow: scroll;
+  margin: 0px !important;
+  border-radius: 8px;
+  color: #141414;
 }
 
 .title, .subtitle {
   text-align: center;
-  color: #000000;
 }
 .title {
   font-size: 40px;
@@ -31,24 +131,11 @@ button {
   font-size: 24px;
 }
 
-.input, .label {
-	margin-left: 50px;	
-}
-
-.input, .fieldset, .text {
-	margin-bottom: 15px;	
-}
-
-.fieldset, .log {
-	min-height: 50px;
-	margin-right: 25%;
-	margin-left: 25%;
-}
-
 .legend {
 	font-style: italic;	
 	font-weight: bold;
 	margin-bottom: 5px;
+  font-size: 20px;
 }
 
 .type{
@@ -80,7 +167,6 @@ button {
   width: 80vw;
   height: 70vh;
   margin-top: 70px;
-  margin: 0 auto;
 }
 
 .item {
@@ -137,6 +223,21 @@ textarea {
   }
 }
 
-@media only screen and (max-width: 600px) {
-  
+#train_button {
+  margin-bottom: 40px;
+}
+
+.ball {
+    width : 25px;
+    height : 25px;
+    background : red;
+    border-radius : 50%;
+    margin-left :  0px;
+    cursor: pointer
+}
+
+.ball_container {
+  width: 60px;
+  background: #786fa6;
+  border-radius: 20%;
 }

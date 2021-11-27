@@ -1,22 +1,41 @@
 import "./App.css";
 import { config } from "./config.js";
+import {events} from "./events.js";
 
-function UI(props) {
+function UI(props) { 
   return (
     <div className="UI_wrapper">
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">Training data</legend>
         <div className="input">
           <input type="file" id="data"></input>
+          <button id="data_shown" onClick={(e) => {document.getElementById("data").click()}}>UPLOAD</button>
         </div>
         <div className="description">
           <p className="type">CSV file</p>
           <p>The data that will be used for training</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">Training mode</legend>
+
+     
+
+        <div className='ball_container'><div id="ball_id" class="ball" onClick={(e) => {events.toggle_training_mode(e.target.id)}}></div></div>
+        <div className='ball_container'><div id="ball_id2" class="ball"></div></div>
+
+
+
+
+
+
+
+               
+        
         <div className="input">
           <input
             type="radio"
@@ -30,8 +49,15 @@ function UI(props) {
         <div className="description">
           The mode of training for the optimizer.
         </div>
-      </fieldset>
 
+
+
+
+
+      </fieldset>
+      </div>
+
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">generations</legend>
         <div className="input">
@@ -45,7 +71,9 @@ function UI(props) {
           </p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">population_size</legend>
         <div className="input">
@@ -56,7 +84,9 @@ function UI(props) {
           <p>The number of individuals to retain every generation.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">offspring_size</legend>
         <div className="input">
@@ -67,7 +97,9 @@ function UI(props) {
           <p>The number of offspring to produce each generation.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">mutation_rate</legend>
         <div className="input">
@@ -89,7 +121,9 @@ function UI(props) {
           </p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">crossover_rate</legend>
         <div className="input">
@@ -111,7 +145,9 @@ function UI(props) {
           <p>The percentage of pipelines to randomly breed every generation.</p>
         </div>
       </fieldset>
-
+      </div>
+{/*
+      <div className="ui_item">
       <datalist className="tickmarks" id="tickmarks">
         <option value="0.0"></option>
         <option value="0.1"></option>
@@ -125,7 +161,10 @@ function UI(props) {
         <option value="0.9"></option>
         <option value="1.0"></option>
       </datalist>
+      </div>
+*/}
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">scoring</legend>
         <div className="input">
@@ -136,7 +175,9 @@ function UI(props) {
           <p>The scoring function to use for evaluation.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">cv</legend>
         <div className="input">
@@ -147,7 +188,9 @@ function UI(props) {
           <p>The number of cross-validation folds.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">subsample</legend>
         <div className="input">
@@ -158,7 +201,9 @@ function UI(props) {
           <p>The fraction of training samples to be used for optimization.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">n_jobs</legend>
         <div className="input">
@@ -169,7 +214,9 @@ function UI(props) {
           <p>The number of processes to use.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">max_time_mins</legend>
         <div className="input">
@@ -180,7 +227,9 @@ function UI(props) {
           <p>The maximum duration of training.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">max_eval_time_mins</legend>
         <div className="input">
@@ -191,7 +240,9 @@ function UI(props) {
           <p>The maximum duration of evaluation.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">random_state</legend>
         <div className="input">
@@ -202,7 +253,9 @@ function UI(props) {
           <p>Seed for the pseudo-random number generator.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">config_dict</legend>
         <div className="input">
@@ -213,7 +266,9 @@ function UI(props) {
           <p>The name of the TPOT config to use.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">template</legend>
         <div className="input">
@@ -224,7 +279,9 @@ function UI(props) {
           <p>The template to use when building pipelines.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">warm_start</legend>
         <div className="input">
@@ -235,7 +292,9 @@ function UI(props) {
           <p>Whether or not to reuse populations from previous runs.</p>
         </div>
       </fieldset>
+     </div>
 
+     <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">use_dask</legend>
         <div className="input">
@@ -246,7 +305,9 @@ function UI(props) {
           <p>Whether or not to use Dask for parallel computing.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">early_stop</legend>
         <div className="input">
@@ -260,7 +321,9 @@ function UI(props) {
           </p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend className="legend">verbosity</legend>
         <div className="input">
@@ -271,9 +334,16 @@ function UI(props) {
           <p>The verbosity level of the optimizer.</p>
         </div>
       </fieldset>
+      </div>
 
+      <div className="ui_item">
+      <fieldset className="fieldset">
+        <legend className="legend">output</legend>
       <div hidden className="log" id="log_area"></div>
+      </fieldset>
+      </div>
 
+      <div className="ui_item">
       <fieldset className="fieldset">
         <legend align="center" className="legend">
           RESPONSE
@@ -290,6 +360,10 @@ function UI(props) {
           </a>
         </div>
       </fieldset>
+      </div>
+      <div className="ui_item">
+      <button id="train_button" onClick={(event) => {events.trainTPOT()}}>Train</button> 
+      </div>
     </div>
   );
 }

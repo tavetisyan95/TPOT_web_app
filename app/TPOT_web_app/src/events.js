@@ -175,4 +175,10 @@ export const events = {
         "Dataset not selected. Please select a dataset for tuning.";
     }
   },
+  toggle_training_mode : function(id) {
+    const elem = document.getElementById(id);
+    elem.style.marginLeft = "35px";
+    elem.style.background = "limegreen";
+    elem.style.transition = "all 0.2s ease-in-out";
+  }
 };
