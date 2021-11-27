@@ -111,11 +111,11 @@ input {
 }
 
 #log_area {
-  background: #3fa3a3;
+  background: #161633;
   overflow: scroll;
   margin: 0px !important;
   border-radius: 8px;
-  color: #141414;
+  color: whitesmoke;
 }
 
 .title, .subtitle {
@@ -227,6 +227,15 @@ textarea {
   margin-bottom: 40px;
 }
 
+.toggle_wrapper {
+  display: flex;
+  background: transparent;
+  width: 80%;
+  justify-content: space-evenly;
+  text-align: center;
+  margin-left: 50px;
+}
+
 .ball {
     width : 25px;
     height : 25px;
@@ -240,4 +249,13 @@ textarea {
   width: 60px;
   background: #786fa6;
   border-radius: 20%;
+}
+
+#ball_id {
+  margin-left : 35px;
+  background: limegreen;
+}
+
+.description {
+  margin-top: 20px;
 }

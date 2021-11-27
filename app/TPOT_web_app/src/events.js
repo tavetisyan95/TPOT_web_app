@@ -66,7 +66,8 @@ export const events = {
   trainTPOT: function () {
     // Obtaining the provided CSV dataset and selected training mode
     var file = document.getElementById("data").files[0];
-    var mode = document.querySelector('input[name="mode"]:checked').value;
+    //var mode = document.querySelector('input[name="mode"]:checked').value;
+    var mode = events.toggle_choice;
 
     // Obtaining the values of provided parameters
     var generations = document.getElementById("generations").value;
@@ -175,10 +176,31 @@ export const events = {
         "Dataset not selected. Please select a dataset for tuning.";
     }
   },
-  toggle_training_mode : function(id) {
+  toggle_train_state : {},
+  toggle_choice : "Classification",
+  toggle_training_mode : function(id, choice) {
+    events.toggle_choice = choice;
+    const possible = ["ball_id", "ball_id2"];
     const elem = document.getElementById(id);
-    elem.style.marginLeft = "35px";
-    elem.style.background = "limegreen";
+    if(typeof(events.toggle_train_state[id]) === "undefined") {
+      events.toggle_train_state[id] = false;
+    }
+    if(events.toggle_train_state[id]) {
+      elem.style.marginLeft = "35px";
+      elem.style.background = "limegreen";
+      const other_id = possible.filter((x) => x !== id)[0]
+      const other_elem = document.getElementById(other_id);
+      other_elem.style.marginLeft = "0px";
+      other_elem.style.background = "red";
+    } else {
+      elem.style.marginLeft = "0px";
+      elem.style.background = "red";
+      const other_id = possible.filter((x) => x !== id)[0]
+      const other_elem = document.getElementById(other_id);
+      other_elem.style.marginLeft = "35px";
+      other_elem.style.background = "limegreen";
+    }
     elem.style.transition = "all 0.2s ease-in-out";
+    events.toggle_train_state[id] = !events.toggle_train_state[id];
   }
 };

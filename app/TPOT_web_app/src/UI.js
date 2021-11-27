@@ -24,17 +24,24 @@ function UI(props) {
         <legend className="legend">Training mode</legend>
 
      
+      <div className="toggle_wrapper">
+        <div className='ball_container'><div id="ball_id" class="ball" onClick={(e) => {events.toggle_training_mode(e.target.id, "Classification")}}></div></div>
+        <div>CLASSIFICATION</div>
+        <div></div>
+        <div></div>
+        <div className='ball_container'><div id="ball_id2" class="ball" onClick={(e) => {events.toggle_training_mode(e.target.id, "Regression")}}></div></div>
+        <div>REGRESSION</div>
+      </div>
+      <div className="description">
+          The mode of training for the optimizer.
+        </div>
 
-        <div className='ball_container'><div id="ball_id" class="ball" onClick={(e) => {events.toggle_training_mode(e.target.id)}}></div></div>
-        <div className='ball_container'><div id="ball_id2" class="ball"></div></div>
 
 
 
 
 
-
-
-               
+               {/*}
         
         <div className="input">
           <input
@@ -49,6 +56,7 @@ function UI(props) {
         <div className="description">
           The mode of training for the optimizer.
         </div>
+  */}
 
 
 
